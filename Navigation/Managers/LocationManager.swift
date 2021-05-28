@@ -8,10 +8,6 @@
 import Foundation
 import CoreLocation
 
-//protocol LocationManagerDelegate: AnyObject {
-//  func locationsDidChange(location: Location)
-//}
-
 class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
   let locationManager = CLLocationManager()
 
@@ -25,22 +21,23 @@ class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
   var destination : CLLocation = .init(latitude: 37.7749, longitude: -122.4194)
   var userLocation: CLLocation = .init()
   
-  override init() {
+  init(location: Location) {
     super.init()
 
-    self.locationManager.delegate = self
-    self.locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-
-    self.locationManager.requestWhenInUseAuthorization()
-    self.locationManager.startUpdatingLocation()
+    destination = CLLocation(
+      latitude: location.latitude,
+      longitude: location.longitude)
     
-    self.locationManager.startUpdatingHeading()
+    locationManager.delegate = self
+    locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+
+    locationManager.requestWhenInUseAuthorization()
+    locationManager.startUpdatingLocation()
+    
+    locationManager.startUpdatingHeading()
   }
 
-  func locationManager(
-    _ manager: CLLocationManager,
-    didUpdateLocations locations: [CLLocation]
-  ) {
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
     guard locationManager.authorizationStatus != .denied else { return }
     guard let location = locations.last else { return }
     
