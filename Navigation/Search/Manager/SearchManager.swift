@@ -5,12 +5,11 @@
 //  Created by Samuel Shi on 5/25/2021.
 //
 
-import Foundation
 import Combine
+import Foundation
 import MapKit
 
 class SearchManager: NSObject, ObservableObject {
-  
   enum LocationStatus: Equatable {
     case idle
     case noResults
@@ -34,7 +33,7 @@ class SearchManager: NSObject, ObservableObject {
     self.searchCompleter.delegate = self
     self.searchCompleter.resultTypes = [.address, .pointOfInterest]
     
-    queryCancellable = $queryFragment
+    self.queryCancellable = $queryFragment
       .receive(on: DispatchQueue.main)
       .debounce(for: .milliseconds(250), scheduler: RunLoop.main, options: nil)
       .sink { fragment in
@@ -56,26 +55,23 @@ extension SearchManager: MKLocalSearchCompleterDelegate {
     self.status = completer.results.isEmpty ? .noResults : .result
   }
   
-  func completer(_ completer: MKLocalSearchCompleter,
-                 didFailWithError error: Error) {
+  func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
     self.status = .error(error.localizedDescription)
   }
     
-  func geocode(
-    completionResult: MKLocalSearchCompletion,
-    completion: @escaping (Location) -> Void
-  ) {
+  func geocode(completionResult: MKLocalSearchCompletion, completion: @escaping (Location) -> Void) {
     let geocoder = CLGeocoder()
     let key = completionResult.title + " " + completionResult.subtitle
     
-    geocoder.geocodeAddressString(key) { placemarks, error in
+    geocoder.geocodeAddressString(key) { placemarks, _ in
       guard let placemark = placemarks?.first,
-            let location  = placemark.location else { return }
+            let location = placemark.location else { return }
       
       let result = Location(
         name: completionResult.title,
         latitude: location.coordinate.latitude,
-        longitude: location.coordinate.longitude)
+        longitude: location.coordinate.longitude
+      )
       
       completion(result)
     }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NavView: View {
+struct NavigationScreen: View {
   @StateObject var locationManager: LocationManager
   @Binding var location: Location?
   
@@ -29,5 +29,12 @@ struct NavView: View {
           locationManager: locationManager)
       }
     }
+  }
+}
+
+
+struct NavigationScreen_Previews: PreviewProvider {
+  static var previews: some View {
+    NavigationScreen(location: .constant(.example()))
   }
 }

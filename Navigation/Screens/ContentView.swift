@@ -12,10 +12,10 @@ struct ContentView: View {
   @State private var location: Location?
   
   var body: some View {
-    if let _ = location {
-      NavView(location: $location)
+    if location != nil {
+      NavigationScreen(location: $location)
     } else {
-      SearchView(location: $location)
+      SearchScreen(location: $location)
     }
   }
 }
