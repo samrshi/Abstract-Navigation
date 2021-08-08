@@ -5,25 +5,25 @@
 //  Created by Samuel Shi on 5/29/21.
 //
 
-import SwiftUI
 import MapKit
+import SwiftUI
 
 struct SearchResultsView: View {
+  @ObservedObject var mainManager = MainManager.shared
   @ObservedObject var manager: SearchManager
-  @Binding var location: Location?
   
   var body: some View {
     Group {
       if !manager.queryFragment.isEmpty {
-        List {
-          SearchStatusView(manager: manager)
+        Divider()
+        
+        SearchStatusView(manager: manager)
           
-          ForEach(manager.searchResults, id: \.self) { result in
-            Button(action: { geocode(result) }) {
-              SearchResultView(result: result)
-            }
-            .buttonStyle(PlainButtonStyle())
+        ForEach(manager.searchResults, id: \.self) { result in
+          Button(action: { geocode(result) }) {
+            SearchResultView(result: result)
           }
+          .buttonStyle(PlainButtonStyle())
         }
       }
     }
@@ -31,7 +31,7 @@ struct SearchResultsView: View {
   
   func geocode(_ completionResult: MKLocalSearchCompletion) {
     manager.geocode(completionResult: completionResult) { result in
-      location = result
+      mainManager.selectedLocation = result
     }
   }
 }

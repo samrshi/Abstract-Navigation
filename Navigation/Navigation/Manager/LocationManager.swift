@@ -14,7 +14,9 @@ class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
   let minDistance: Double = 1000
   var oldLocation: CLLocation?
 
-  @Published var distanceToDestination: Double = 0
+  @Published var distanceToDestination: String = ""
+  @Published var distanceUnit: String = "mi"
+
   @Published var angleToDestination: Double = 0
   @Published var heading: Double = 0
 
@@ -44,8 +46,24 @@ class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
     userLocation = location
     calculateAngle()
 
-    let distance = userLocation.distance(from: destination)
-    distanceToDestination = Measurement(value: distance, unit: UnitLength.meters).converted(to: .miles).value
+    var distance = userLocation.distance(from: destination)
+
+    var unit: UnitLength
+    if distance <= 500 {
+      unit = .feet
+      distanceUnit = "feet"
+    } else {
+      unit = .miles
+      distanceUnit = "miles"
+    }
+
+    distance = Measurement(value: distance, unit: UnitLength.meters).converted(to: unit).value
+
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+    formatter.maximumFractionDigits = distance > 1 ? 0 : 1
+
+    distanceToDestination = formatter.string(from: NSNumber(floatLiteral: distance))!
   }
 
   func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
@@ -54,7 +72,8 @@ class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
   }
 
   func calculateAngle() {
-    angleToDestination = heading - userLocation.angleTo(destination: destination)
+    let angle = heading - userLocation.angleTo(destination: destination)
+    angleToDestination = angle
   }
 
   func requestPreciseLocation() {

@@ -5,18 +5,19 @@
 //  Created by Samuel Shi on 5/20/21.
 //
 
-import SwiftUI
 import CoreLocation
+import MapKit
+import SwiftUI
 
 struct ContentView: View {
-  @State private var location: Location?
-  
+  @ObservedObject var manager = MainManager.shared
+
   var body: some View {
-    if location != nil {
-      NavigationScreen(location: $location)
-    } else {
-      SearchScreen(location: $location)
-    }
+    MainViewController.View()
+      .ignoresSafeArea()
+      .fullScreenCover(isPresented: .constant(manager.selectedLocation != nil)) {
+        NavigationScreen()
+      }
   }
 }
 

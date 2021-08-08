@@ -18,6 +18,7 @@ struct SearchResultView: View {
       
       Text(result.subtitle)
     }
+    .padding(.vertical, 5)
     .font(.subheadline)
   }
 }

@@ -6,15 +6,36 @@
 //
 
 import Foundation
+import MapKit
 
 struct Location: Identifiable {
-  let id = UUID()
+  var id = UUID()
 
   let name: String
   let latitude: Double
   let longitude: Double
+  
+  init(name: String, latitude: Double, longitude: Double) {
+    self.name = name
+    self.latitude = latitude
+    self.longitude = longitude
+  }
+  
+  init?(response: MKLocalSearch.Response?) {
+    guard let mapItem = response?.mapItems.first,
+          let name = mapItem.name else {
+      return nil
+    }
+    
+    let coordinate = mapItem.placemark.coordinate
+    self = Location(name: name, latitude: coordinate.latitude, longitude: coordinate.longitude)
+  }
 
-  static func example() -> Location {
+  static func summit() -> Location {
     Location(name: "Summit Coffee Co.", latitude: 35.9129114, longitude: -79.0579603)
+  }
+  
+  static func starbucks() -> Location {
+    Location(name: "Starbucks", latitude: 35.9129114, longitude: -79.0579603)
   }
 }

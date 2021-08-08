@@ -10,41 +10,63 @@ import SwiftUI
 
 struct MapView: View {
   @Environment(\.presentationMode) var presentationMode
+  @State private var region: MKCoordinateRegion
   
   let location: Location
+  let vm: MapVM
+  
+  init(location: Location) {
+    self.location = location
+    vm = MapVM(location: location)
+    _region = State(initialValue: vm.region)
+  }
   
   var body: some View {
-    ZStack(alignment: .topTrailing) {
-      Map(coordinateRegion: .constant(region),
+    ZStack(alignment: .top) {
+      Map(coordinateRegion: $region,
+          interactionModes: .all,
+          showsUserLocation: true,
+          userTrackingMode: nil,
           annotationItems: [location]) { _ in
-          MapAnnotation(
-            coordinate: coordinate,
-            anchorPoint: CGPoint(x: 0.5, y: 0.5),
-            content: { annotation })
+        MapMarker(coordinate: vm.coordinate)
       }
       .ignoresSafeArea()
+      .animation(.easeInOut)
       
-      Button(action: { presentationMode.wrappedValue.dismiss() }) {
-        Text("Done")
-          .font(.headline)
-          .padding()
+      HStack {
+        Button(action: { region = vm.region }) {
+          Image("map-center")
+            .renderingMode(.template)
+            .resizable()
+            .foregroundColor(.blue.opacity(0.8))
+            .frame(width: 35, height: 35)
+            .padding(10)
+        }
+        
+        Spacer()
+        
+        Button(action: { presentationMode.wrappedValue.dismiss() }) {
+          Text("Done")
+            .font(.headline)
+            .padding(10)
+            .foregroundColor(.white)
+            .background(Color.blue.opacity(0.8))
+            .cornerRadius(10)
+            .padding(10)
+        }
       }
     }
   }
+}
+
+struct MapVM {
+  let coordinate: CLLocationCoordinate2D
+  let region: MKCoordinateRegion
   
-  var annotation: some View {
-    Circle()
-      .stroke(Color.blue)
-      .frame(width: 44, height: 44)
-  }
-  
-  var coordinate: CLLocationCoordinate2D {
-    CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
-  }
-  
-  var region: MKCoordinateRegion {
-    MKCoordinateRegion(
+  init(location: Location) {
+    coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+    region = MKCoordinateRegion(
       center: coordinate,
-      span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+      span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
   }
 }

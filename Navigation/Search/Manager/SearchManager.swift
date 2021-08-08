@@ -60,18 +60,22 @@ extension SearchManager: MKLocalSearchCompleterDelegate {
   }
     
   func geocode(completionResult: MKLocalSearchCompletion, completion: @escaping (Location) -> Void) {
-    let geocoder = CLGeocoder()
-    let key = completionResult.title + " " + completionResult.subtitle
+    let request = MKLocalSearch.Request(completion: completionResult)
+    let search = MKLocalSearch(request: request)
     
-    geocoder.geocodeAddressString(key) { placemarks, _ in
-      guard let placemark = placemarks?.first,
-            let location = placemark.location else { return }
+    search.start { response, error in
+      if let error = error {
+        fatalError("MKLocalSearch error: \(error.localizedDescription)")
+      }
+      
+      guard let mapItem = response?.mapItems.first, let name = mapItem.name else {
+        fatalError("No map items")
+      }
       
       let result = Location(
-        name: completionResult.title,
-        latitude: location.coordinate.latitude,
-        longitude: location.coordinate.longitude
-      )
+        name: name,
+        latitude: mapItem.placemark.coordinate.latitude,
+        longitude: mapItem.placemark.coordinate.longitude)
       
       completion(result)
     }

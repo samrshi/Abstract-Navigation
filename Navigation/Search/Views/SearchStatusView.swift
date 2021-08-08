@@ -18,7 +18,13 @@ struct SearchStatusView: View {
       case .error(let description):
         Text("Error: \(description)")
       default:
-        EmptyView()
+        if manager.searchResults.isEmpty {
+          HStack {
+            Spacer()
+            ProgressView()
+            Spacer()
+          }
+        }
       }
     }.foregroundColor(.gray)
   }

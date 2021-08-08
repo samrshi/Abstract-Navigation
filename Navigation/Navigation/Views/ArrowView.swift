@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ArrowView: View {
   let rotation: Double
-  
+
   var body: some View {
     Image(systemName: "arrow.up")
       .font(.system(size: 200))

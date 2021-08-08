@@ -9,43 +9,57 @@ import MapKit
 import SwiftUI
 
 struct InformationView: View {
-  let title: String
-  @Binding var location: Location?
+  @ObservedObject var manager = MainManager.shared
   @ObservedObject var locationManager: LocationManager
 
   @State private var showMap: Bool = false
+  @State private var showAlert: Bool = false
 
   var body: some View {
     VStack {
       HStack {
-        Text(title)
-          .font(.largeTitle)
+        if let title = manager.selectedLocation?.name {
+          Text(title)
+            .font(.largeTitle)
+        }
+        
         Spacer()
-        CompassView(rotation: -locationManager.heading)
-          .onTapGesture(count: 3, perform: reset)
+        
+        Button(action: presentMap) {
+          Image(systemName: "map.fill")
+            .font(.title2)
+            .padding([.vertical, .trailing] ,5)
+        }
+        
+        Button(action: { showAlert.toggle() }) {
+          Image(systemName: "xmark")
+            .font(.title2)
+            .padding(5)
+        }
       }
 
       Spacer()
 
       HStack {
-        Text("\(locationManager.distanceToDestination) miles")
-          .font(.title)
+        Text("\(locationManager.distanceToDestination) \(locationManager.distanceUnit)")
+          .font(.largeTitle)
 
         Spacer()
-
-        Button(action: presentMap) {
-          Text("Show On Map")
-        }
       }
     }
     .padding()
     .sheet(isPresented: $showMap) {
-      MapView(location: location!)
+      MapView(location: manager.selectedLocation!)
+    }
+    .alert(isPresented: $showAlert) {
+      Alert(title: Text("Are you sure?"),
+            primaryButton: .cancel(),
+            secondaryButton: .default(Text("OK"), action: reset))
     }
   }
 
   func reset() {
-    location = nil
+    manager.selectedLocation = nil
   }
 
   func presentMap() {
