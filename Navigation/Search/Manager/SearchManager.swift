@@ -30,7 +30,7 @@ class SearchManager: NSObject, ObservableObject {
   
   @Published var userRegion: MKCoordinateRegion?
   @Published var region = MKCoordinateRegion()
-
+  
   let locationManager = LocationManager.shared
   
   var cancellable: AnyCancellable?

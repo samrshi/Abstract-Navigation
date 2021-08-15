@@ -21,4 +21,8 @@ extension UIColor {
   static var background: UIColor {
     UIColor(named: "background")!
   }
+  
+  static var card: UIColor {
+    UIColor(named: "card")!
+  }
 }

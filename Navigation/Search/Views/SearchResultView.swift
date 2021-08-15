@@ -29,5 +29,6 @@ struct SearchResultView: View {
       .padding(.vertical, 5)
       .font(.subheadline)
     }
+    .animation(.none)
   }
 }

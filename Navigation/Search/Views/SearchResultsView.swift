@@ -20,12 +20,12 @@ struct SearchResultsView: View {
 
         ForEach(manager.mapItems, id: \.id) { mapItem in
           Button {
-            print(mapItem.pointOfInterestCategory.toIcon())
-            mainManager.selectedLocation = Location(mapItem: mapItem)
+            mainManager.selectedMapItem = mapItem
           } label: {
             SearchResultView(imageName: mapItem.pointOfInterestCategory.toIcon(), title: mapItem.name ?? "", subtitle: mapItem.placemark.title ?? "")
           }
           .buttonStyle(PlainButtonStyle())
+          .disabled(mainManager.isScrolling)
         }
       }
   }

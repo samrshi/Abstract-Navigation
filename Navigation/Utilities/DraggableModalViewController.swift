@@ -85,6 +85,8 @@ class DraggableModalViewController: UIViewController {
     let isDraggingDown = translation.y > 0
     let newHeight = currentContainerHeight - translation.y
     
+    MainManager.shared.dismissKeyboard()
+    
     switch gesture.state {
     case .changed:
       if newHeight < maximumContainerHeight {
@@ -107,6 +109,8 @@ class DraggableModalViewController: UIViewController {
   }
     
   func animateContainerHeight(height: CGFloat, fromKeyboard: Bool) {
+    containerView.layoutIfNeeded()
+    
     UIView.animate(withDuration: 0.4) {
       self.containerViewHeightConstraint?.constant = height
       self.view.layoutIfNeeded()

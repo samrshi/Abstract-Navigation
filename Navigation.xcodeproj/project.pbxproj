@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BD12353126C8820100A8DEAE /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD12353026C8820000A8DEAE /* SearchResultViewModel.swift */; };
+		BD12353426C8D94D00A8DEAE /* SSAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD12353326C8D94D00A8DEAE /* SSAnnotation.swift */; };
 		BD28123926C059D100322B47 /* DraggableModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD28123826C059D100322B47 /* DraggableModalViewController.swift */; };
 		BD28123B26C0658200322B47 /* UIView+AddAndPinSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD28123A26C0658200322B47 /* UIView+AddAndPinSubview.swift */; };
 		BD28123D26C0773900322B47 /* MainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD28123C26C0773900322B47 /* MainManager.swift */; };
@@ -40,6 +41,7 @@
 
 /* Begin PBXFileReference section */
 		BD12353026C8820000A8DEAE /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
+		BD12353326C8D94D00A8DEAE /* SSAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSAnnotation.swift; sourceTree = "<group>"; };
 		BD28123826C059D100322B47 /* DraggableModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableModalViewController.swift; sourceTree = "<group>"; };
 		BD28123A26C0658200322B47 /* UIView+AddAndPinSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AddAndPinSubview.swift"; sourceTree = "<group>"; };
 		BD28123C26C0773900322B47 /* MainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainManager.swift; sourceTree = "<group>"; };
@@ -89,6 +91,14 @@
 				BD12353026C8820000A8DEAE /* SearchResultViewModel.swift */,
 			);
 			path = "View Models";
+			sourceTree = "<group>";
+		};
+		BD12353226C8D93F00A8DEAE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BD12353326C8D94D00A8DEAE /* SSAnnotation.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		BD28123726C059AF00322B47 /* Utilities */ = {
@@ -201,6 +211,7 @@
 			isa = PBXGroup;
 			children = (
 				BD42035F2676E87800BB1EBC /* SearchView.swift */,
+				BD12353226C8D93F00A8DEAE /* Models */,
 				BD12352F26C881F100A8DEAE /* View Models */,
 				BDD43BF1266327F800703B26 /* Manager */,
 				BDD43BF0266327E500703B26 /* Views */,
@@ -315,6 +326,7 @@
 				BD28123D26C0773900322B47 /* MainManager.swift in Sources */,
 				BDD43BEB266321F900703B26 /* SearchResultView.swift in Sources */,
 				BD3AC53E265DFACF00A9D2FA /* Location.swift in Sources */,
+				BD12353426C8D94D00A8DEAE /* SSAnnotation.swift in Sources */,
 				BDDF250626C099DD00A1B297 /* Colors.swift in Sources */,
 				BDD43BED2663225A00703B26 /* SearchStatusView.swift in Sources */,
 				BD3AC533265DF66800A9D2FA /* InformationView.swift in Sources */,

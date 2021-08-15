@@ -19,7 +19,7 @@ extension View {
   func myCard() -> some View {
     self
       .padding()
-      .background(Color("card"))
+      .background(Color(.card))
       .cornerRadius(10)
   }
 }

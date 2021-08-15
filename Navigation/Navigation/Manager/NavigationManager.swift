@@ -58,26 +58,24 @@ class NavigationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
   @Published var angleToDestination: Double = 0
   @Published var heading: Double = 0
 
-  var destination: CLLocation = .init(latitude: 37.7749, longitude: -122.4194)
+  var destination: CLLocation = .init()
   var userLocation: CLLocation = .init()
   var cancellables: [AnyCancellable] = []
   
   init(location: Location) {
     super.init()
 
-    destination = CLLocation(
-      latitude: location.latitude,
-      longitude: location.longitude)
+    destination = CLLocation(latitude: location.latitude, longitude: location.longitude)
     
     locationManager.locationsPublisher
-      .sink { [weak self] locations in
-        self?.didUpdateLocations(locations: locations)
+      .sink { locations in
+        self.didUpdateLocations(locations: locations)
       }
       .store(in: &cancellables)
     
     locationManager.headingPublisher
-      .sink { [weak self] heading in
-        self?.didUpdateHeading(newHeading: heading)
+      .sink { heading in
+        self.didUpdateHeading(newHeading: heading)
       }
       .store(in: &cancellables)
   }

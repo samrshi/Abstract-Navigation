@@ -13,6 +13,7 @@ struct SearchFieldView: View {
   var body: some View {
     ZStack(alignment: .trailing) {
       TextField("Search for a location...", text: $manager.queryFragment)
+        .frame(height: 40)
       
       if manager.status == .isSearching {
         Image(systemName: "clock")
