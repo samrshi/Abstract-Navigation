@@ -25,6 +25,7 @@ struct NavigationScreen: View {
 
       InformationView(locationManager: locationManager)
     }
+    .fullscreenBackground(Color(.background))
   }
 }
 

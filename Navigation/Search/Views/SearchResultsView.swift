@@ -13,36 +13,20 @@ struct SearchResultsView: View {
   @ObservedObject var manager: SearchManager
 
   var body: some View {
-    Group {
       if !manager.queryFragment.isEmpty {
         Divider()
 
         SearchStatusView(manager: manager)
 
-        if !manager.searchResults.isEmpty {
-          Button(action: manager.getMapItems) {
-            Text("Search for \"\(manager.queryFragment)\" on map...")
-                .bold()
-                .font(.subheadline)
-          }
-        }
-        ForEach(manager.searchResults, id: \.self) { result in
-          Button(action: { geocode(result) }) {
-            SearchResultView(result: result)
+        ForEach(manager.mapItems, id: \.id) { mapItem in
+          Button {
+            print(mapItem.pointOfInterestCategory.toIcon())
+            mainManager.selectedLocation = Location(mapItem: mapItem)
+          } label: {
+            SearchResultView(imageName: mapItem.pointOfInterestCategory.toIcon(), title: mapItem.name ?? "", subtitle: mapItem.placemark.title ?? "")
           }
           .buttonStyle(PlainButtonStyle())
         }
       }
-    }
-  }
-
-  func geocode(_ completionResult: MKLocalSearchCompletion) {
-    LocalSearchPublishers.geocode(completionResult: completionResult, region: manager.region)
-      .compactMap { Location(mapItem: $0.first) }
-      .receive(on: DispatchQueue.main)
-      .sink { _ in } receiveValue: { location in
-        mainManager.selectedLocation = location
-      }
-      .store(in: &manager.cancellables)
   }
 }

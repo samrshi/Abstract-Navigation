@@ -10,6 +10,8 @@ import CoreLocation
 import Foundation
 
 class LocationManager: NSObject, CLLocationManagerDelegate {
+  static let shared = LocationManager()
+  
   let locationManager = CLLocationManager()
 
   let locationsPublisher = PassthroughSubject<[CLLocation], Never>()
@@ -45,7 +47,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
 }
 
 class NavigationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
-  let locationManager = LocationManager()
+  let locationManager = LocationManager.shared
 
   let minDistance: Double = 1000
   var oldLocation: CLLocation?

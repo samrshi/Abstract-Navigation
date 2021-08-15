@@ -18,7 +18,7 @@ struct SearchStatusView: View {
       case .error(let description):
         Text("Error: \(description)")
       default:
-        if manager.searchResults.isEmpty {
+        if manager.mapItems.isEmpty {
           HStack {
             Spacer()
             ProgressView()

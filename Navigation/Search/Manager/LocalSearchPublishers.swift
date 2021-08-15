@@ -9,29 +9,24 @@ import Combine
 import Foundation
 import MapKit
 
-enum LocalSearchError: Error {
-  case noMapItems
-  case other
-}
-
 enum LocalSearchPublishers {
-  private static func localSearch(request: MKLocalSearch.Request, completion: @escaping (Result<[MKMapItem], LocalSearchError>) -> Void) {
+  static func localSearch(request: MKLocalSearch.Request, completion: @escaping (Result<[MKMapItem], Error>) -> Void) {
     let search = MKLocalSearch(request: request)
     
     search.start { response, error in
-      if error != nil {
-        completion(.failure(.other))
+      if let error = error {
+        completion(.failure(error))
       }
 
       if let mapItems = response?.mapItems {
         completion(.success(mapItems))
       } else {
-        completion(.failure(.noMapItems))
+        completion(.success([]))
       }
     }
   }
   
-  static func geocode(query: String, region: MKCoordinateRegion) -> AnyPublisher<[MKMapItem], LocalSearchError> {
+  static func geocode(query: String, region: MKCoordinateRegion) -> AnyPublisher<[MKMapItem], Error> {
     let request = MKLocalSearch.Request()
     request.naturalLanguageQuery = query
     request.region = region
@@ -42,7 +37,7 @@ enum LocalSearchPublishers {
     .eraseToAnyPublisher()
   }
   
-  static func geocode(completionResult: MKLocalSearchCompletion, region: MKCoordinateRegion) -> AnyPublisher<[MKMapItem], LocalSearchError> {
+  static func geocode(completionResult: MKLocalSearchCompletion, region: MKCoordinateRegion) -> AnyPublisher<[MKMapItem], Error> {
     let request = MKLocalSearch.Request(completion: completionResult)
     request.region = region
     
@@ -52,7 +47,7 @@ enum LocalSearchPublishers {
     .eraseToAnyPublisher()
   }
 
-  static func publishPlacemarks(completions: [MKLocalSearchCompletion], region: MKCoordinateRegion) -> AnyPublisher<[MKMapItem], LocalSearchError> {
+  static func publishPlacemarks(completions: [MKLocalSearchCompletion], region: MKCoordinateRegion) -> AnyPublisher<[MKMapItem], Error> {
     return completions.publisher
       .flatMap { geocode(completionResult: $0, region: region) }
       .compactMap(\.first)

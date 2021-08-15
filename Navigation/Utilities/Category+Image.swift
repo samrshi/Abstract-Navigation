@@ -10,89 +10,89 @@ import MapKit
 
 extension Optional where Wrapped == MKPointOfInterestCategory {
   func toIcon() -> String {
-    guard let self = self else { return "arrow.up" }
+    guard let self = self else { return "default" }
 
     switch self {
     case .airport:
-      return "arrow.up"
+      return "airport"
     case .aquarium:
-      return "arrow.up"
+      return "aquarium"
     case .atm:
-      return "arrow.up"
+      return "atm"
     case .bakery:
-      return "arrow.up"
+      return "bakery"
     case .bank:
-      return "arrow.up"
+      return "bank"
     case .beach:
-      return "arrow.up"
+      return "beach"
     case .brewery:
-      return "arrow.up"
+      return "brewery"
     case .cafe:
-      return "arrow.up"
+      return "cafe"
     case .campground:
-      return "arrow.up"
+      return "campground"
     case .carRental:
-      return "arrow.up"
+      return "car-rental"
     case .evCharger:
-      return "arrow.up"
+      return "ev-charger"
     case .fireStation:
-      return "arrow.up"
+      return "fire-station"
     case .fitnessCenter:
-      return "arrow.up"
+      return "fitness-center"
     case .foodMarket:
-      return "arrow.up"
+      return "food-market"
     case .gasStation:
-      return "arrow.up"
+      return "gas-station"
     case .hospital:
-      return "arrow.up"
+      return "hospital"
     case .hotel:
-      return "arrow.up"
+      return "hotel"
     case .laundry:
-      return "arrow.up"
+      return "laundry"
     case .library:
-      return "arrow.up"
+      return "library"
     case .marina:
-      return "arrow.up"
+      return "marina"
     case .movieTheater:
-      return "arrow.up"
+      return "movie-theater"
     case .museum:
-      return "arrow.up"
+      return "museum"
     case .nationalPark:
-      return "arrow.up"
+      return "national-park"
     case .nightlife:
-      return "arrow.up"
+      return "nightlife"
     case .park:
-      return "arrow.up"
+      return "park"
     case .parking:
-      return "arrow.up"
+      return "parking"
     case .pharmacy:
-      return "arrow.up"
+      return "pharmacy"
     case .police:
-      return "arrow.up"
+      return "police"
     case .postOffice:
-      return "arrow.up"
+      return "post-office"
     case .publicTransport:
-      return "arrow.up"
+      return "public-transport"
     case .restaurant:
-      return "arrow.up"
+      return "restaurant"
     case .restroom:
-      return "arrow.up"
+      return "restroom"
     case .school:
-      return "arrow.up"
+      return "school"
     case .stadium:
-      return "arrow.up"
+      return "stadium"
     case .store:
-      return "arrow.up"
+      return "store"
     case .theater:
-      return "arrow.up"
+      return "theater"
     case .university:
-      return "arrow.up"
+      return "university"
     case .winery:
-      return "arrow.up"
+      return "winery"
     case .zoo:
-      return "arrow.up"
+      return "zoo"
     default:
-      return "arrow.up"
+      return "default"
     }
   }
 }

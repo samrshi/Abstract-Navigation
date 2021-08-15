@@ -9,15 +9,22 @@ import SwiftUI
 import MapKit
 
 struct SearchResultView: View {
-  let result: MKLocalSearchCompletion
+  let imageName: String
+  let title: String
+  let subtitle: String
   
   var body: some View {
     HStack {
+      Image(imageName)
+        .resizable()
+        .scaledToFit()
+        .frame(width: 40, height: 40)
+      
       VStack(alignment: .leading) {
-        Text(result.title)
+        Text(title)
           .bold()
         
-        Text(result.subtitle)
+        Text(subtitle)
       }
       .padding(.vertical, 5)
       .font(.subheadline)

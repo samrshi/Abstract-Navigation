@@ -101,6 +101,14 @@ extension MainViewController {
         self?.mapView.addAnnotations(mapItems.map(\.placemark))
       }
       .store(in: &cancellables)
+    
+    searchManager.$userRegion
+      .receive(on: DispatchQueue.main)
+      .sink { [weak self] region in
+        guard let region = region else { return }
+        self?.mapView.region = region
+      }
+      .store(in: &cancellables)
   }
 }
 

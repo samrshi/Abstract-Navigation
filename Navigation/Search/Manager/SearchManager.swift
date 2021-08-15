@@ -9,6 +9,12 @@ import Combine
 import Foundation
 import MapKit
 
+extension MKMapItem: Identifiable {
+  public var id: UUID {
+    UUID()
+  }
+}
+
 class SearchManager: NSObject, ObservableObject {
   enum LocationStatus: Equatable {
     case idle
@@ -20,78 +26,58 @@ class SearchManager: NSObject, ObservableObject {
   
   @Published var queryFragment: String = ""
   @Published var status: LocationStatus = .idle
-  @Published var searchResults: [MKLocalSearchCompletion] = []
   @Published var mapItems: [MKMapItem] = []
-  @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 35.913200, longitude: -79.055847),
-                                             span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
-  let locationManager = LocationManager()
-  var userRegion = MKCoordinateRegion()
   
+  @Published var userRegion: MKCoordinateRegion?
+  @Published var region = MKCoordinateRegion()
+
+  let locationManager = LocationManager.shared
+  
+  var cancellable: AnyCancellable?
   var cancellables: [AnyCancellable] = []
   var queryCancellable: AnyCancellable?
   var mapItemCancellable: AnyCancellable?
   
-  let searchCompleter = MKLocalSearchCompleter()
-  var publisher = PassthroughSubject<String, LocalSearchError>()
-  
   override init() {
     super.init()
-    
-    searchCompleter.region = region
-    searchCompleter.delegate = self
-    searchCompleter.resultTypes = [.address, .pointOfInterest]
-    
-    setUpObserver()
+    setUpObservers()
   }
   
-  func setUpObserver() {
+  func setUpObservers() {
     queryCancellable = $queryFragment
       .receive(on: DispatchQueue.main)
-      .debounce(for: .milliseconds(500), scheduler: RunLoop.main, options: nil)
-      .sink { [weak self] fragment in
-        guard let self = self else { return }
+      .debounce(for: .seconds(1), scheduler: RunLoop.main, options: nil)
+      .sink { fragment in
+        guard fragment != "" else { return }
         
         self.status = .isSearching
-        if !fragment.isEmpty {
-          self.searchCompleter.queryFragment = fragment
-        } else {
-          self.status = .idle
-          self.searchResults = []
-        }
+        self.mapItemCancellable = LocalSearchPublishers.geocode(query: fragment, region: self.region)
+          .receive(on: DispatchQueue.main)
+          .sink { completion in
+            if case .failure(let error) = completion {
+              self.status = .error(error.localizedDescription)
+            }
+          } receiveValue: { mapItems in
+            self.mapItems = mapItems
+            self.status = mapItems.isEmpty ? .noResults : .idle
+            self.mapItemCancellable = nil
+          }
       }
-    
-    mapItemCancellable = publisher
-      .flatMap { query in
-        LocalSearchPublishers.publishPlacemarks(completions: self.searchResults, region: self.region)
-      }
-      .replaceError(with: [])
-      .eraseToAnyPublisher()
-      .assign(to: \.mapItems, on: self)
     
     locationManager.locationsPublisher
       .map(\.last)
       .compactMap { $0 }
-      .map { MKCoordinateRegion(center: $0.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)) }
-      .assign(to: \.userRegion, on: self)
+      .map {
+        MKCoordinateRegion(
+          center: CLLocationCoordinate2D(latitude: $0.coordinate.latitude - 0.03,
+                                         longitude: $0.coordinate.longitude),
+          span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+      }
+      .sink { region in
+        if self.userRegion == nil {
+          self.userRegion = region
+        }
+      }
       .store(in: &cancellables)
-    
-    $region
-      .assign(to: \.region, on: searchCompleter)
-      .store(in: &cancellables)
-  }
-    
-  func getMapItems() {
-    publisher.send(queryFragment)
-  }
-}
-
-extension SearchManager: MKLocalSearchCompleterDelegate {
-  func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-    searchResults = completer.results
-    status = completer.results.isEmpty ? .noResults : .result
-  }
-  
-  func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
-    status = .error(error.localizedDescription)
   }
 }
