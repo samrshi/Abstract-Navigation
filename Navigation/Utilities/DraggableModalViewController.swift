@@ -122,5 +122,5 @@ class DraggableModalViewController: UIViewController {
     }
   }
   
-  func didChangeModalHeight(newHeight: CGFloat, fromKeyboard: Bool) { }
+  func didChangeModalHeight(newHeight: CGFloat, fromKeyboard: Bool) {}
 }

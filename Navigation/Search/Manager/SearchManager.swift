@@ -19,26 +19,39 @@ class SearchManager: NSObject, ObservableObject {
   }
   
   @Published var queryFragment: String = ""
-  @Published private(set) var status: LocationStatus = .idle
-  @Published private(set) var searchResults: [MKLocalSearchCompletion] = []
+  @Published var status: LocationStatus = .idle
+  @Published var searchResults: [MKLocalSearchCompletion] = []
+  @Published var mapItems: [MKMapItem] = []
+  @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 35.913200, longitude: -79.055847),
+                                             span: MKCoordinateSpan(latitudeDelta: 0.2, longitudeDelta: 0.2))
+  let locationManager = LocationManager()
+  var userRegion = MKCoordinateRegion()
   
-  private var queryCancellable: AnyCancellable?
-  private let searchCompleter: MKLocalSearchCompleter!
+  var cancellables: [AnyCancellable] = []
+  var queryCancellable: AnyCancellable?
+  var mapItemCancellable: AnyCancellable?
   
-  init(searchCompleter: MKLocalSearchCompleter = MKLocalSearchCompleter()) {
-    self.searchCompleter = searchCompleter
-    
+  let searchCompleter = MKLocalSearchCompleter()
+  var publisher = PassthroughSubject<String, LocalSearchError>()
+  
+  override init() {
     super.init()
     
-    self.searchCompleter.delegate = self
-    self.searchCompleter.resultTypes = [.address, .pointOfInterest]
+    searchCompleter.region = region
+    searchCompleter.delegate = self
+    searchCompleter.resultTypes = [.address, .pointOfInterest]
     
-    self.queryCancellable = $queryFragment
+    setUpObserver()
+  }
+  
+  func setUpObserver() {
+    queryCancellable = $queryFragment
       .receive(on: DispatchQueue.main)
-      .debounce(for: .milliseconds(250), scheduler: RunLoop.main, options: nil)
-      .sink { fragment in
-        self.status = .isSearching
+      .debounce(for: .milliseconds(500), scheduler: RunLoop.main, options: nil)
+      .sink { [weak self] fragment in
+        guard let self = self else { return }
         
+        self.status = .isSearching
         if !fragment.isEmpty {
           self.searchCompleter.queryFragment = fragment
         } else {
@@ -46,38 +59,39 @@ class SearchManager: NSObject, ObservableObject {
           self.searchResults = []
         }
       }
+    
+    mapItemCancellable = publisher
+      .flatMap { query in
+        LocalSearchPublishers.publishPlacemarks(completions: self.searchResults, region: self.region)
+      }
+      .replaceError(with: [])
+      .eraseToAnyPublisher()
+      .assign(to: \.mapItems, on: self)
+    
+    locationManager.locationsPublisher
+      .map(\.last)
+      .compactMap { $0 }
+      .map { MKCoordinateRegion(center: $0.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)) }
+      .assign(to: \.userRegion, on: self)
+      .store(in: &cancellables)
+    
+    $region
+      .assign(to: \.region, on: searchCompleter)
+      .store(in: &cancellables)
+  }
+    
+  func getMapItems() {
+    publisher.send(queryFragment)
   }
 }
 
 extension SearchManager: MKLocalSearchCompleterDelegate {
   func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-    self.searchResults = completer.results
-    self.status = completer.results.isEmpty ? .noResults : .result
+    searchResults = completer.results
+    status = completer.results.isEmpty ? .noResults : .result
   }
   
   func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
-    self.status = .error(error.localizedDescription)
-  }
-    
-  func geocode(completionResult: MKLocalSearchCompletion, completion: @escaping (Location) -> Void) {
-    let request = MKLocalSearch.Request(completion: completionResult)
-    let search = MKLocalSearch(request: request)
-    
-    search.start { response, error in
-      if let error = error {
-        fatalError("MKLocalSearch error: \(error.localizedDescription)")
-      }
-      
-      guard let mapItem = response?.mapItems.first, let name = mapItem.name else {
-        fatalError("No map items")
-      }
-      
-      let result = Location(
-        name: name,
-        latitude: mapItem.placemark.coordinate.latitude,
-        longitude: mapItem.placemark.coordinate.longitude)
-      
-      completion(result)
-    }
+    status = .error(error.localizedDescription)
   }
 }

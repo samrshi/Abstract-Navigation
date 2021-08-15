@@ -12,7 +12,10 @@ struct SearchFieldView: View {
   
   var body: some View {
     ZStack(alignment: .trailing) {
-      TextField("Search for a location...", text: $manager.queryFragment)
+      TextField("Search for a location...",
+                text: $manager.queryFragment,
+                onEditingChanged: { _ in }, 
+                onCommit: manager.getMapItems)
       
       if manager.status == .isSearching {
         Image(systemName: "clock")

@@ -10,7 +10,7 @@ import SwiftUI
 
 struct InformationView: View {
   @ObservedObject var manager = MainManager.shared
-  @ObservedObject var locationManager: LocationManager
+  @ObservedObject var locationManager: NavigationManager
 
   @State private var showMap: Bool = false
   @State private var showAlert: Bool = false

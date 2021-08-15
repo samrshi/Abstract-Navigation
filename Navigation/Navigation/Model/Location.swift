@@ -21,8 +21,8 @@ struct Location: Identifiable {
     self.longitude = longitude
   }
   
-  init?(response: MKLocalSearch.Response?) {
-    guard let mapItem = response?.mapItems.first,
+  init?(mapItem: MKMapItem?) {
+    guard let mapItem = mapItem,
           let name = mapItem.name else {
       return nil
     }

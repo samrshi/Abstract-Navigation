@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct NavigationScreen: View {
-  @StateObject var locationManager: LocationManager
+  @StateObject var locationManager: NavigationManager
   @ObservedObject var manager: MainManager
 
   init() {
@@ -16,7 +16,7 @@ struct NavigationScreen: View {
     guard let location = manager.selectedLocation else { fatalError("No Location Present") }
 
     self.manager = MainManager.shared
-    self._locationManager = StateObject(wrappedValue: LocationManager(location: location))
+    self._locationManager = StateObject(wrappedValue: NavigationManager(location: location))
   }
 
   var body: some View {

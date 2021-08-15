@@ -29,25 +29,28 @@ class MainViewController: DraggableModalViewController {
     return scrollView
   }()
     
-  lazy var mapView: UIView = {
+  lazy var mapView: MKMapView = {
     let view = MKMapView(frame: .zero)
     view.translatesAutoresizingMaskIntoConstraints = false
+    view.delegate = self
+    view.isUserInteractionEnabled = true
     view.showsUserLocation = true
     return view
   }()
   
   var cancellables: [AnyCancellable] = []
+  var publisher = PassthroughSubject<MKPlacemark, Never>()
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    setUpKeyboardObservers()
+    setUpObservers()
   }
   
   override func setUpViews() {
     view.addAndPinSubview(view: mapView)
     containerView.addSubview(scrollView)
     scrollView.addSubview(hostingController.view)
-    containerView.backgroundColor = .myBackground
+    containerView.backgroundColor = .background
     
     NSLayoutConstraint.activate([
       scrollView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 25),
@@ -83,7 +86,7 @@ extension MainViewController: UIScrollViewDelegate {
 }
 
 extension MainViewController {
-  func setUpKeyboardObservers() {
+  func setUpObservers() {
     NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
       .sink { [weak self] _ in
         guard let self = self else { return }
@@ -91,10 +94,24 @@ extension MainViewController {
       }
       .store(in: &cancellables)
     
-    searchManager.$searchResults
+    searchManager.$mapItems
       .receive(on: DispatchQueue.main)
-      .sink { completions in
-        // do something
+      .sink { [weak self] mapItems in
+        self?.mapView.removeAnnotations(self?.mapView.annotations ?? [])
+        self?.mapView.addAnnotations(mapItems.map(\.placemark))
       }
+      .store(in: &cancellables)
+  }
+}
+
+extension MainViewController: MKMapViewDelegate {
+  func mapViewDidChangeVisibleRegion(_ mapView: MKMapView) {
+    DispatchQueue.main.async { [weak self] in
+      self?.searchManager.region = mapView.region
+    }
+  }
+  
+  func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+    print("")
   }
 }

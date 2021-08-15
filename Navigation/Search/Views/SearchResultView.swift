@@ -12,13 +12,15 @@ struct SearchResultView: View {
   let result: MKLocalSearchCompletion
   
   var body: some View {
-    VStack(alignment: .leading) {
-      Text(result.title)
-        .bold()
-      
-      Text(result.subtitle)
+    HStack {
+      VStack(alignment: .leading) {
+        Text(result.title)
+          .bold()
+        
+        Text(result.subtitle)
+      }
+      .padding(.vertical, 5)
+      .font(.subheadline)
     }
-    .padding(.vertical, 5)
-    .font(.subheadline)
   }
 }
