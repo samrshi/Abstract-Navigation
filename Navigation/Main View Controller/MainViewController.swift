@@ -9,25 +9,6 @@ import Combine
 import MapKit
 import SwiftUI
 
-struct MapItemView: View {
-  @ObservedObject var mainManager: MainManager
-  
-  var body: some View {
-    VStack {
-      if let mapItem = mainManager.selectedMapItem {
-        Button {
-          mainManager.selectedLocation = Location(mapItem: mapItem)
-        } label: {
-          Text(mapItem.name ?? "")
-        }
-      }
-      
-      Spacer()
-    }
-    .padding()
-  }
-}
-
 class MainViewController: DraggableModalViewController {
   var mainManager = MainManager.shared
   var searchManager = SearchManager()
@@ -41,12 +22,14 @@ class MainViewController: DraggableModalViewController {
   }()
   
   lazy var mapItemViewController: UIHostingController<MapItemView> = {
-    let mapItemView = MapItemView(mainManager: mainManager)
+    let mapItemView = MapItemView()
     let hostingController = UIHostingController(rootView: mapItemView)
     hostingController.view?.backgroundColor = .clear
     hostingController.view?.translatesAutoresizingMaskIntoConstraints = false
     return hostingController
   }()
+  
+  var navigationViewController: UIHostingController<NavigationScreen>?
   
   lazy var scrollView: UIScrollView = {
     let scrollView = UIScrollView()
@@ -109,18 +92,18 @@ class MainViewController: DraggableModalViewController {
     ])
   }
   
-  override func didChangeModalHeight(newHeight: CGFloat, fromKeyboard: Bool) {
-    super.didChangeModalHeight(newHeight: newHeight, fromKeyboard: fromKeyboard)
-
-    scrollView.isScrollEnabled = newHeight == maximumContainerHeight
-    if !fromKeyboard { mainManager.dismissKeyboard() }
-  }
-  
   func setUpObservers() {
     NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)
       .sink { [weak self] _ in
         guard let self = self else { return }
         self.animateContainerHeight(height: self.maximumContainerHeight, fromKeyboard: true)
+      }
+      .store(in: &cancellables)
+    
+    NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)
+      .sink { [weak self] _ in
+        guard let self = self else { return }
+        self.animateContainerHeight(height: self.defaultHeight, fromKeyboard: true)
       }
       .store(in: &cancellables)
     
@@ -130,48 +113,64 @@ class MainViewController: DraggableModalViewController {
       .sink { annotations in
         self.mapView.removeAnnotations(self.mapView.annotations)
         self.mapView.addAnnotations(annotations)
+        
+        let latitudes = annotations.map(\.mapItem.placemark.coordinate.latitude)
+        let longitudes = annotations.map(\.mapItem.placemark.coordinate.longitude)
+        
+        if let minLatitude = latitudes.min(),
+           let maxLatitude = latitudes.max(),
+           let minLongitude = longitudes.min(),
+           let maxLongitude = longitudes.max()
+        {
+          let deltaLatitude = maxLatitude - minLatitude
+          let deltaLongitude = maxLongitude - minLongitude
+          let center = CLLocationCoordinate2D(latitude: minLatitude + (deltaLatitude / 2), longitude: minLongitude + (deltaLongitude / 2))
+          let span = MKCoordinateSpan(latitudeDelta: deltaLatitude, longitudeDelta: deltaLongitude)
+          self.changeRegion(region: MKCoordinateRegion(center: center, span: span))
+        }
       }
       .store(in: &cancellables)
     
     searchManager.$userRegion
+      .compactMap { $0 }
       .receive(on: DispatchQueue.main)
-      .sink { [weak self] region in
-        guard let region = region else { return }
-        self?.mapView.region = region
+      .sink { region in
+        self.changeRegion(region: region)
       }
       .store(in: &cancellables)
     
     mainManager.$selectedMapItem
       .receive(on: DispatchQueue.main)
       .sink { mapItem in
-        guard let mapItem = mapItem else { return }
-        self.searchViewController.view.removeFromSuperview()
-        self.addMapItemView()
-        
-        let latitude = mapItem.placemark.coordinate.latitude - 0.0125
-        let longitude = mapItem.placemark.coordinate.longitude
-        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-        let span = MKCoordinateSpan(latitudeDelta: 0.025, longitudeDelta: 0.025)
-        self.mapView.region = MKCoordinateRegion(center: coordinate, span: span)
-        
-        if let annotation = self.mapView.annotations.first(where: {
-          let annotation = $0 as? SSAnnotation
-          return annotation?.mapItem.url == mapItem.url
-        }) {
-          self.mapView.selectAnnotation(annotation, animated: true)
+        if mapItem != nil {
+          let vc = UIHostingController(rootView: NavigationScreen())
+          self.navigationViewController = vc
+          vc.modalPresentationStyle = .fullScreen
+          self.present(vc, animated: true)
+        } else {
+          self.navigationViewController?.dismiss(animated: true)
+          self.navigationViewController = nil
+          
+          self.mapView.selectedAnnotations.forEach {
+            self.mapView.deselectAnnotation($0, animated: true)
+          }
         }
-        
-        self.animateContainerHeight(height: self.defaultHeight, fromKeyboard: false)
       }
       .store(in: &cancellables)
+  }
+  
+  override func didChangeModalHeight(newHeight: CGFloat, fromKeyboard: Bool) {
+    super.didChangeModalHeight(newHeight: newHeight, fromKeyboard: fromKeyboard)
+
+    scrollView.isScrollEnabled = newHeight == maximumContainerHeight
+    if !fromKeyboard { mainManager.dismissKeyboard() }
   }
 }
 
 extension MainViewController: MKMapViewDelegate {
   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
     guard let annotation = annotation as? SSAnnotation else { return nil }
-    let identifier = "SearchMapAnnotation"
-    
+    let identifier = annotation.mapItem.pointOfInterestCategory.toIcon()
     var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier)
     
     if annotationView != nil {
@@ -199,6 +198,12 @@ extension MainViewController: MKMapViewDelegate {
     
     view.frame.size = CGSize(width: 40, height: 40)
     animateContainerHeight(height: defaultHeight, fromKeyboard: false)
+  }
+  
+  func changeRegion(region: MKCoordinateRegion) {
+    UIView.animate(withDuration: 0.5) {
+      self.mapView.region = region
+    }
   }
 }
 

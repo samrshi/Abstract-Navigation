@@ -13,10 +13,10 @@ struct NavigationScreen: View {
 
   init() {
     let manager = MainManager.shared
-    guard let location = manager.selectedLocation else { fatalError("No Location Present") }
+    guard let mapItem = manager.selectedMapItem else { fatalError("No Location Present") }
 
     self.manager = MainManager.shared
-    self._locationManager = StateObject(wrappedValue: NavigationManager(location: location))
+    self._locationManager = StateObject(wrappedValue: NavigationManager(mapItem: mapItem))
   }
 
   var body: some View {

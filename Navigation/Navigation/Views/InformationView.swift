@@ -11,14 +11,12 @@ import SwiftUI
 struct InformationView: View {
   @ObservedObject var manager = MainManager.shared
   @ObservedObject var locationManager: NavigationManager
-
   @State private var showMap: Bool = false
-  @State private var showAlert: Bool = false
 
   var body: some View {
     VStack {
-      HStack {
-        if let title = manager.selectedLocation?.name {
+      HStack(alignment: .top) {
+        if let title = manager.selectedMapItem?.name {
           Text(title)
             .font(.largeTitle)
         }
@@ -31,12 +29,13 @@ struct InformationView: View {
             .padding([.vertical, .trailing] ,5)
         }
         
-        Button(action: { showAlert.toggle() }) {
+        Button(action: reset) {
           Image(systemName: "xmark")
             .font(.title2)
             .padding(5)
         }
       }
+      .buttonStyle(PlainButtonStyle())
 
       Spacer()
 
@@ -49,17 +48,12 @@ struct InformationView: View {
     }
     .padding()
     .sheet(isPresented: $showMap) {
-      MapView(location: manager.selectedLocation!)
-    }
-    .alert(isPresented: $showAlert) {
-      Alert(title: Text("Are you sure?"),
-            primaryButton: .cancel(),
-            secondaryButton: .default(Text("OK"), action: reset))
+      MapView(mapItem: manager.selectedMapItem!)
     }
   }
 
   func reset() {
-    manager.selectedLocation = nil
+    manager.selectedMapItem = nil
   }
 
   func presentMap() {

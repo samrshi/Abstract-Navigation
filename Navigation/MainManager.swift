@@ -12,7 +12,7 @@ import SwiftUI
 class MainManager: ObservableObject {
   static let shared = MainManager()
 
-  @Published var selectedLocation: Location?
+//  @Published var selectedLocation: Location?
   @Published var selectedMapItem: MKMapItem?
   @Published var isScrolling = false
 

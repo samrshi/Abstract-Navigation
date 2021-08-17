@@ -8,46 +8,10 @@
 import Combine
 import CoreLocation
 import Foundation
-
-class LocationManager: NSObject, CLLocationManagerDelegate {
-  static let shared = LocationManager()
-  
-  let locationManager = CLLocationManager()
-
-  let locationsPublisher = PassthroughSubject<[CLLocation], Never>()
-  let headingPublisher = PassthroughSubject<CLHeading, Never>()
-
-  override init() {
-    super.init()
-
-    locationManager.delegate = self
-    locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-
-    locationManager.requestWhenInUseAuthorization()
-    locationManager.startUpdatingLocation()
-
-    locationManager.startUpdatingHeading()
-  }
-  
-  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-    locationsPublisher.send(locations)
-  }
-  
-  func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
-    headingPublisher.send(newHeading)
-  }
-  
-  func requestPreciseLocation() {
-    if locationManager.accuracyAuthorization == .reducedAccuracy {
-      locationManager.requestTemporaryFullAccuracyAuthorization(withPurposeKey: "ForDirections") { error in
-        print(error.debugDescription)
-      }
-    }
-  }
-}
+import MapKit
 
 class NavigationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
-  let locationManager = LocationManager.shared
+  let locationManager = CLLocationManager()
 
   let minDistance: Double = 1000
   var oldLocation: CLLocation?
@@ -60,24 +24,36 @@ class NavigationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
 
   var destination: CLLocation = .init()
   var userLocation: CLLocation = .init()
-  var cancellables: [AnyCancellable] = []
-  
-  init(location: Location) {
+
+  init(mapItem: MKMapItem) {
     super.init()
 
-    destination = CLLocation(latitude: location.latitude, longitude: location.longitude)
-    
-    locationManager.locationsPublisher
-      .sink { locations in
-        self.didUpdateLocations(locations: locations)
+    guard let location = mapItem.placemark.location else { return }
+    destination = location
+
+    locationManager.delegate = self
+    locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+
+    locationManager.requestWhenInUseAuthorization()
+    locationManager.startUpdatingLocation()
+
+    locationManager.startUpdatingHeading()
+  }
+
+  func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    didUpdateLocations(locations: locations)
+  }
+
+  func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+    didUpdateHeading(newHeading: newHeading)
+  }
+
+  func requestPreciseLocation() {
+    if locationManager.accuracyAuthorization == .reducedAccuracy {
+      locationManager.requestTemporaryFullAccuracyAuthorization(withPurposeKey: "ForDirections") { error in
+        print(error.debugDescription)
       }
-      .store(in: &cancellables)
-    
-    locationManager.headingPublisher
-      .sink { heading in
-        self.didUpdateHeading(newHeading: heading)
-      }
-      .store(in: &cancellables)
+    }
   }
 
   func didUpdateLocations(locations: [CLLocation]) {
@@ -104,6 +80,10 @@ class NavigationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
     formatter.maximumFractionDigits = distance > 1 ? 0 : 1
 
     distanceToDestination = formatter.string(from: NSNumber(floatLiteral: distance))!
+    
+    if distanceToDestination == "1", distanceUnit == "miles" {
+      distanceUnit = "mile"
+    }
   }
 
   func didUpdateHeading(newHeading: CLHeading) {

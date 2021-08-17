@@ -12,12 +12,12 @@ struct MapView: View {
   @Environment(\.presentationMode) var presentationMode
   @State private var region: MKCoordinateRegion
   
-  let location: Location
-  let vm: MapVM
+  let mapItem: MKMapItem
+  let vm: MapViewModel
   
-  init(location: Location) {
-    self.location = location
-    vm = MapVM(location: location)
+  init(mapItem: MKMapItem) {
+    self.mapItem = mapItem
+    vm = MapViewModel(mapItem: mapItem)
     _region = State(initialValue: vm.region)
   }
   
@@ -27,7 +27,7 @@ struct MapView: View {
           interactionModes: .all,
           showsUserLocation: true,
           userTrackingMode: nil,
-          annotationItems: [location]) { _ in
+          annotationItems: [mapItem]) { _ in
         MapMarker(coordinate: vm.coordinate)
       }
       .ignoresSafeArea()
@@ -35,11 +35,12 @@ struct MapView: View {
       
       HStack {
         Button(action: { region = vm.region }) {
-          Image("map-center")
-            .renderingMode(.template)
-            .resizable()
-            .foregroundColor(.blue.opacity(0.8))
-            .frame(width: 35, height: 35)
+          Image(systemName: "mappin.circle.fill")
+            .font(.headline)
+            .padding(10)
+            .foregroundColor(.white)
+            .background(Color.blue.opacity(0.8))
+            .cornerRadius(10)
             .padding(10)
         }
         
@@ -59,12 +60,12 @@ struct MapView: View {
   }
 }
 
-struct MapVM {
+struct MapViewModel {
   let coordinate: CLLocationCoordinate2D
   let region: MKCoordinateRegion
   
-  init(location: Location) {
-    coordinate = CLLocationCoordinate2D(latitude: location.latitude, longitude: location.longitude)
+  init(mapItem: MKMapItem) {
+    coordinate = mapItem.placemark.coordinate
     region = MKCoordinateRegion(
       center: coordinate,
       span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))

@@ -22,7 +22,7 @@ struct SearchResultView: View {
       
       VStack(alignment: .leading) {
         Text(title)
-          .bold()
+          .font(.headline)
         
         Text(subtitle)
       }

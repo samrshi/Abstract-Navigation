@@ -15,9 +15,6 @@ struct ContentView: View {
   var body: some View {
     MainViewController.View()
       .ignoresSafeArea()
-      .fullScreenCover(isPresented: .constant(manager.selectedLocation != nil)) {
-        NavigationScreen()
-      }
   }
 }
 

@@ -49,29 +49,13 @@ class SearchManager: NSObject, ObservableObject {
       .debounce(for: .seconds(1), scheduler: RunLoop.main, options: nil)
       .sink { fragment in
         guard fragment != "" else { return }
-        
-        self.status = .isSearching
-        self.mapItemCancellable = LocalSearchPublishers.geocode(query: fragment, region: self.region)
-          .receive(on: DispatchQueue.main)
-          .sink { completion in
-            if case .failure(let error) = completion {
-              self.status = .error(error.localizedDescription)
-            }
-          } receiveValue: { mapItems in
-            self.mapItems = mapItems
-            self.status = mapItems.isEmpty ? .noResults : .idle
-            self.mapItemCancellable = nil
-          }
+        self.fetchLocations(query: fragment)
       }
     
     locationManager.locationsPublisher
-      .map(\.last)
-      .compactMap { $0 }
+      .compactMap { $0.last }
       .map {
-        MKCoordinateRegion(
-          center: CLLocationCoordinate2D(latitude: $0.coordinate.latitude - 0.03,
-                                         longitude: $0.coordinate.longitude),
-          span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+        MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: $0.coordinate.latitude - 0.03, longitude: $0.coordinate.longitude), span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
       }
       .sink { region in
         if self.userRegion == nil {
@@ -79,5 +63,20 @@ class SearchManager: NSObject, ObservableObject {
         }
       }
       .store(in: &cancellables)
+  }
+  
+  func fetchLocations(query: String) {
+    self.status = .isSearching
+    self.mapItemCancellable = LocalSearchPublishers.geocode(query: query, region: self.region)
+      .receive(on: DispatchQueue.main)
+      .sink { completion in
+        if case .failure(let error) = completion {
+          self.status = .error(error.localizedDescription)
+        }
+      } receiveValue: { mapItems in
+        self.mapItems = mapItems
+        self.status = mapItems.isEmpty ? .noResults : .idle
+        self.mapItemCancellable = nil
+      }
   }
 }

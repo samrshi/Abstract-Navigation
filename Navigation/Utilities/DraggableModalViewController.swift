@@ -34,7 +34,7 @@ class DraggableModalViewController: UIViewController {
   let dismissibleHeight: CGFloat = UIScreen.main.bounds.height / 2.5
   let maximumContainerHeight: CGFloat = UIScreen.main.bounds.height - 64
   let minumumContainerHeight: CGFloat = UIScreen.main.bounds.height / 4
-  var currentContainerHeight: CGFloat = UIScreen.main.bounds.height / 2
+  var currentContainerHeight: CGFloat = UIScreen.main.bounds.height / 4
     
   // Dynamic container constraint
   var containerViewHeightConstraint: NSLayoutConstraint?
@@ -66,8 +66,8 @@ class DraggableModalViewController: UIViewController {
       containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
     ])
     
-    containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: defaultHeight)
-    containerViewBottomConstraint = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: defaultHeight)
+    containerViewHeightConstraint = containerView.heightAnchor.constraint(equalToConstant: currentContainerHeight)
+    containerViewBottomConstraint = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: currentContainerHeight)
     containerViewHeightConstraint?.isActive = true
     containerViewBottomConstraint?.isActive = true
   }

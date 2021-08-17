@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		BD12353126C8820100A8DEAE /* SearchResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD12353026C8820000A8DEAE /* SearchResultViewModel.swift */; };
 		BD12353426C8D94D00A8DEAE /* SSAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD12353326C8D94D00A8DEAE /* SSAnnotation.swift */; };
+		BD12353626C9D9A600A8DEAE /* MapItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD12353526C9D9A600A8DEAE /* MapItemView.swift */; };
+		BD12353826CB6C8600A8DEAE /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD12353726CB6C8500A8DEAE /* LocationManager.swift */; };
 		BD28123926C059D100322B47 /* DraggableModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD28123826C059D100322B47 /* DraggableModalViewController.swift */; };
 		BD28123B26C0658200322B47 /* UIView+AddAndPinSubview.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD28123A26C0658200322B47 /* UIView+AddAndPinSubview.swift */; };
 		BD28123D26C0773900322B47 /* MainManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD28123C26C0773900322B47 /* MainManager.swift */; };
@@ -42,6 +44,8 @@
 /* Begin PBXFileReference section */
 		BD12353026C8820000A8DEAE /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
 		BD12353326C8D94D00A8DEAE /* SSAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSAnnotation.swift; sourceTree = "<group>"; };
+		BD12353526C9D9A600A8DEAE /* MapItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapItemView.swift; sourceTree = "<group>"; };
+		BD12353726CB6C8500A8DEAE /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		BD28123826C059D100322B47 /* DraggableModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableModalViewController.swift; sourceTree = "<group>"; };
 		BD28123A26C0658200322B47 /* UIView+AddAndPinSubview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+AddAndPinSubview.swift"; sourceTree = "<group>"; };
 		BD28123C26C0773900322B47 /* MainManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainManager.swift; sourceTree = "<group>"; };
@@ -105,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				BDB9416226672F0500EEACD6 /* URLImage.swift */,
+				BD12353726CB6C8500A8DEAE /* LocationManager.swift */,
 				BD28123826C059D100322B47 /* DraggableModalViewController.swift */,
 				BD28123A26C0658200322B47 /* UIView+AddAndPinSubview.swift */,
 				BDDF250126C099AC00A1B297 /* Category+Image.swift */,
@@ -238,6 +243,7 @@
 				BDD43BE82663207A00703B26 /* SearchResultsView.swift */,
 				BDD43BEC2663225A00703B26 /* SearchStatusView.swift */,
 				BDD43BEA266321F900703B26 /* SearchResultView.swift */,
+				BD12353526C9D9A600A8DEAE /* MapItemView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -322,6 +328,7 @@
 			files = (
 				BD28123926C059D100322B47 /* DraggableModalViewController.swift in Sources */,
 				BDB9416326672F0500EEACD6 /* URLImage.swift in Sources */,
+				BD12353826CB6C8600A8DEAE /* LocationManager.swift in Sources */,
 				BDD43BEF2663270400703B26 /* MapView.swift in Sources */,
 				BD28123D26C0773900322B47 /* MainManager.swift in Sources */,
 				BDD43BEB266321F900703B26 /* SearchResultView.swift in Sources */,
@@ -337,6 +344,7 @@
 				BD3AC537265DF6E600A9D2FA /* NavigationScreen.swift in Sources */,
 				BDD43BE72663202C00703B26 /* SearchFieldView.swift in Sources */,
 				BD28123F26C081F000322B47 /* MainViewController.swift in Sources */,
+				BD12353626C9D9A600A8DEAE /* MapItemView.swift in Sources */,
 				BD987E202656CEB5009AB643 /* ContentView.swift in Sources */,
 				BD3AC531265DF62300A9D2FA /* ArrowView.swift in Sources */,
 				BD28123B26C0658200322B47 /* UIView+AddAndPinSubview.swift in Sources */,
