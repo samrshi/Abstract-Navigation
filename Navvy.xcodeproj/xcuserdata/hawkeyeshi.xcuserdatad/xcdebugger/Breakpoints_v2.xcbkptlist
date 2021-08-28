@@ -50,38 +50,6 @@
             endingLineNumber = "138"
             landmarkName = "animatePresentContainer()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "79A7F956-2F67-4E56-AEA9-28FD4163BD1F - 2a81a986318787f"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Navvy.DraggableModalViewController.animatePresentContainer() -&gt; ()"
-                  moduleName = "Navvy"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hawkeyeshi/-dev/-Swift/Navvy/Navvy/Utilities/DraggableModalViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "138"
-                  endingLineNumber = "138"
-                  offsetFromSymbolStart = "20">
-               </Location>
-               <Location
-                  uuid = "79A7F956-2F67-4E56-AEA9-28FD4163BD1F - e89b76e6f61482ac"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in Navvy.DraggableModalViewController.animatePresentContainer() -&gt; ()"
-                  moduleName = "Navvy"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/hawkeyeshi/-dev/-Swift/Navvy/Navvy/Utilities/DraggableModalViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "139"
-                  endingLineNumber = "139"
-                  offsetFromSymbolStart = "55">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

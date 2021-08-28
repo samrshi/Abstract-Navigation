@@ -18,92 +18,79 @@ struct MapItemView: View {
       if let mapItem = searchManager.selectedMapItem,
          let title = mapItem.name
       {
-        VStack(alignment: .leading, spacing: 10) {
-          HStack {
-            Image(mapItem.pointOfInterestCategory.toIcon())
-              .resizable()
-              .scaledToFit()
-              .frame(width: 40, height: 40)
+        ScrollView {
+          VStack(alignment: .leading, spacing: 10) {
+            HStack {
+              Image(mapItem.pointOfInterestCategory.toIcon())
+                .resizable()
+                .scaledToFit()
+                .frame(width: 40, height: 40)
 
-            Text(title)
-              .font(.title2)
-              .bold()
-              .fixedSize(horizontal: false, vertical: true)
-          }
-          .padding(.vertical, 10)
-
-          if let address = mapItem.placemark.title {
-            NavvySection(header: headerView(string: "Address")) {
-              Text(address)
+              Text(title)
+                .font(.title2)
+                .bold()
                 .fixedSize(horizontal: false, vertical: true)
-                .font(.system(size: 12))
             }
-          }
+            .padding(.vertical, 10)
 
-          if let url = mapItem.url {
-            NavvySection(header: headerView(string: "Website")) {
-              Button {
-                UIApplication.shared.open(url)
-              } label: {
-                Text(url.absoluteString)
+            if let address = mapItem.placemark.title {
+              NavvySection(header: Text("Address")) {
+                Text(address)
                   .fixedSize(horizontal: false, vertical: true)
-                  .font(.system(size: 12))
               }
             }
-          }
 
-          if let number = mapItem.phoneNumber {
-            NavvySection(header: headerView(string: "Phone Number")) {
-              Button {
-                if let url = URL(string: "tel://" + number.rawPhoneNumber()) {
+            if let url = mapItem.url {
+              NavvySection(header: Text("Website")) {
+                Button {
                   UIApplication.shared.open(url)
+                } label: {
+                  Text(url.absoluteString)
+                    .fixedSize(horizontal: false, vertical: true)
                 }
+              }
+            }
+
+            if let number = mapItem.phoneNumber {
+              NavvySection(header: Text("Phone Number")) {
+                Button {
+                  if let url = URL(string: "tel://" + number.rawPhoneNumber()) {
+                    UIApplication.shared.open(url)
+                  }
+                } label: {
+                  Text(number)
+                    .fixedSize(horizontal: false, vertical: true)
+                }
+              }
+            }
+
+            VStack {
+              Button {
+                mainManager.selectedMapItem = mapItem
               } label: {
-                Text(number)
-                  .fixedSize(horizontal: false, vertical: true)
-                  .font(.system(size: 12))
+                HStack {
+                  Spacer()
+                  Text("Take me there!")
+                  Spacer()
+                }
+                .callToActionButton(background: .blue)
+              }
+              
+              Button {
+                searchManager.selectedMapItem = nil
+              } label: {
+                HStack {
+                  Spacer()
+                  Text("Cancel")
+                  Spacer()
+                }
+                .callToActionButton(background: Color(.card))
               }
             }
+            .padding(.top, 20)
           }
-
-          HStack {
-            Button {
-              searchManager.selectedMapItem = nil
-            } label: {
-              HStack {
-                Spacer()
-                Text("Cancel")
-                Spacer()
-              }
-              .font(.headline)
-              .foregroundColor(.primary)
-              .padding(10)
-              .background(Color(.card))
-              .cornerRadius(10)
-            }
-            .padding(.trailing, 2)
-
-            Spacer()
-
-            Button {
-              mainManager.selectedMapItem = mapItem
-            } label: {
-              HStack {
-                Spacer()
-                Text("Take me there!")
-                Spacer()
-              }
-              .font(.headline)
-              .foregroundColor(.white)
-              .padding(10)
-              .background(Color.blue)
-              .cornerRadius(10)
-            }
-            .padding(.leading, 2)
-          }
-          .padding(.top, 20)
+          .padding()
         }
-        .padding()
       } else {
         HStack {
           Text("Something went wrong")
@@ -122,15 +109,6 @@ struct MapItemView: View {
         .padding()
       }
     }
-  }
-
-  func headerView(string: String) -> some View {
-    Text(string).font(.system(size: 12))
-  }
-
-  func sectionContentView<Content: View>(@ViewBuilder content: () -> Content) -> some View {
-    content()
-      .font(.system(size: 15))
   }
 }
 

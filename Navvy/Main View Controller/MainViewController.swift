@@ -101,7 +101,7 @@ class MainViewController: DraggableModalViewController {
     
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
       let height: CGFloat = self.mapItemViewController.view.sizeThatFits(CGSize(width: self.containerView.frame.width, height: .greatestFiniteMagnitude)).height
-      self.animateContainerHeight(height: height, fromKeyboard: false)
+      self.animateContainerHeight(height: height < self.maximumContainerHeight ? height : self.maximumContainerHeight, fromKeyboard: false)
     }
   }
   

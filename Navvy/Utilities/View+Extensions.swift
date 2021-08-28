@@ -22,5 +22,15 @@ extension View {
       .background(Color(.card))
       .cornerRadius(10)
   }
+  
+  func callToActionButton(background: Color) -> some View {
+    self
+      .multilineTextAlignment(.center)
+      .font(.headline)
+      .foregroundColor(.white)
+      .padding(10)
+      .background(background)
+      .cornerRadius(10)
+  }
 }
 
