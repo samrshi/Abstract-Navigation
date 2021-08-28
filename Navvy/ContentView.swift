@@ -15,20 +15,26 @@ struct ContentView: View {
 
   var body: some View {
     if showOnboarding {
-      OnboardingView(image: "navvy-ill",
-                     title: "Enable Location Permissions",
-                     description: "Navvy uses your location to help you search\nfor nearby locations and to show how to\nget to your destination.",
-                     buttonText: "Okay, I understand!",
-                     action: goToApp)
+      onboardingView
     } else {
-      MainViewController.View()
-        .onAppear {
-          LocationManager.shared = LocationManager()
-        }
-        .ignoresSafeArea()
+      mainViewController
     }
   }
   
+  var mainViewController: some View {
+    MainViewController.View()
+      .onAppear { LocationManager.shared = LocationManager() }
+      .ignoresSafeArea()
+  }
+
+  var onboardingView: some View {
+    OnboardingView(image: "navvy-ill",
+                   title: "Enable Location Permissions",
+                   description: "Navvy uses your location to help you search\nfor nearby locations and to show how to\nget to your destination.",
+                   buttonText: "Okay, I understand!",
+                   action: goToApp)
+  }
+
   func goToApp() {
     showOnboarding = false
     LocationManager.shared = LocationManager()
