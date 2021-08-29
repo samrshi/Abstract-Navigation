@@ -23,6 +23,7 @@ struct SearchResultsView: View {
           manager.fetchLocations()
         } label: {
           Text("Show \"\(manager.queryFragment)\" results on map.")
+            .accessibilityHidden(true)
             .padding(.vertical, 3)
         }
         
