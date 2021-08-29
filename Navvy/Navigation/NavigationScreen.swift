@@ -10,28 +10,59 @@ import SwiftUI
 struct NavigationScreen: View {
   @StateObject var locationManager: NavigationManager
   @ObservedObject var manager: MainManager
-
-  init() {
-    let manager = MainManager.shared
-    guard let mapItem = manager.selectedMapItem else { fatalError("No Location Present") }
-
-    self.manager = MainManager.shared
-    self._locationManager = StateObject(wrappedValue: NavigationManager(mapItem: mapItem))
-  }
+  @State private var showMap = false
 
   var body: some View {
-    ZStack {
+    VStack {
+      header
+
+      Spacer()
+
       Image(systemName: "arrow.up")
         .font(.system(size: 200))
         .rotationEffect(.degrees(-locationManager.angleToDestination))
         .accessibilityLabel(Text(locationManager.accessibilityHeading))
 
-      InformationView(locationManager: locationManager)
+      Spacer()
+
+      HStack {
+        Text("\(locationManager.distanceToDestination) \(locationManager.distanceUnit)")
+          .font(.largeTitle)
+
+        Spacer()
+      }
     }
+    .padding()
+    .sheet(isPresented: $showMap) { MapView(mapItem: manager.selectedMapItem!) }
     .fullScreenCover(isPresented: $locationManager.showErrorScreen) { onboardingView }
     .fullscreenBackground(Color(.background))
   }
   
+  var header: some View {
+    HStack(alignment: .top) {
+      if let title = manager.selectedMapItem?.name {
+        Text(title)
+          .font(.largeTitle)
+      }
+
+      Spacer()
+
+      Button(action: presentMap) {
+        Image(systemName: "map.fill")
+          .foregroundColor(.white)
+          .font(.title2)
+          .padding([.vertical, .trailing], 5)
+      }
+
+      Button(action: reset) {
+        Image(systemName: "xmark")
+          .foregroundColor(.white)
+          .font(.title2)
+          .padding(5)
+      }
+    }
+  }
+
   var onboardingView: some View {
     OnboardingView(image: "navvy-ill",
                    title: "Enable Location Permissions",
@@ -42,13 +73,29 @@ struct NavigationScreen: View {
 
   func showSettings() {
     locationManager.showErrorScreen = false
-    
+
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
       manager.selectedMapItem = nil
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
         UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
       }
     }
+  }
+
+  func reset() {
+    manager.selectedMapItem = nil
+  }
+
+  func presentMap() {
+    showMap.toggle()
+  }
+
+  init() {
+    let manager = MainManager.shared
+    guard let mapItem = manager.selectedMapItem else { fatalError("No Location Present") }
+
+    self.manager = MainManager.shared
+    self._locationManager = StateObject(wrappedValue: NavigationManager(mapItem: mapItem))
   }
 }
 
