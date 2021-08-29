@@ -14,6 +14,24 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>NavvyTests.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>BD6927E926DB377A005F24DB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BD987E192656CEB5009AB643</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 	</dict>
 </dict>
 </plist>

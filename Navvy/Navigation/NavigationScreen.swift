@@ -21,22 +21,28 @@ struct NavigationScreen: View {
 
   var body: some View {
     ZStack {
-      ArrowView(rotation: -locationManager.angleToDestination)
+      Image(systemName: "arrow.up")
+        .font(.system(size: 200))
+        .rotationEffect(.degrees(-locationManager.angleToDestination))
+        .accessibilityLabel(Text(locationManager.accessibilityHeading))
 
       InformationView(locationManager: locationManager)
     }
-    .fullScreenCover(isPresented: $locationManager.showErrorScreen) {
-      OnboardingView(image: "navvy-ill",
-                     title: "Enable Location Permissions",
-                     description: "Navvy uses your location to help you search\nfor nearby locations and to show how to\nget to your destination.\n\nYou can turn this on in Settings.",
-                     buttonText: "Take me to Settings!",
-                     action: showSettings)
-    }
+    .fullScreenCover(isPresented: $locationManager.showErrorScreen) { onboardingView }
     .fullscreenBackground(Color(.background))
+  }
+  
+  var onboardingView: some View {
+    OnboardingView(image: "navvy-ill",
+                   title: "Enable Location Permissions",
+                   description: "Navvy uses your location to help you search\nfor nearby locations and to show how to\nget to your destination.\n\nYou can turn this on in Settings.",
+                   buttonText: "Take me to Settings!",
+                   action: showSettings)
   }
 
   func showSettings() {
     locationManager.showErrorScreen = false
+    
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
       manager.selectedMapItem = nil
       DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {

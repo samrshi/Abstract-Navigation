@@ -46,6 +46,7 @@ class MainViewController: DraggableModalViewController {
     view.delegate = self
     view.isUserInteractionEnabled = true
     view.showsUserLocation = true
+    view.accessibilityElementsHidden = true
     return view
   }()
   

@@ -26,6 +26,8 @@
 		BD4B0A8126D2C13C009CA10D /* MKCoordinateRegion+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD4B0A8026D2C13C009CA10D /* MKCoordinateRegion+Extensions.swift */; };
 		BD51353D26D1746F006963E1 /* NavvySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD51353C26D1746F006963E1 /* NavvySection.swift */; };
 		BD51B7F126D0281900A2E77D /* Notifiation.Name+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD51B7F026D0281900A2E77D /* Notifiation.Name+Keyboard.swift */; };
+		BD6927ED26DB377A005F24DB /* NavvyDirectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6927EC26DB377A005F24DB /* NavvyDirectionTests.swift */; };
+		BD6927F426DB3B2C005F24DB /* NavvyAccesibilityHeadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6927F326DB3B2C005F24DB /* NavvyAccesibilityHeadingTests.swift */; };
 		BD6FC87E26CB819300C40550 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6FC87D26CB819300C40550 /* OnboardingView.swift */; };
 		BD987E1E2656CEB5009AB643 /* NavigationApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD987E1D2656CEB5009AB643 /* NavigationApp.swift */; };
 		BD987E202656CEB5009AB643 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD987E1F2656CEB5009AB643 /* ContentView.swift */; };
@@ -45,6 +47,16 @@
 		BDF81AA7265849E600D5DBDC /* CLLocation+Angle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF81AA6265849E600D5DBDC /* CLLocation+Angle.swift */; };
 		BDF81AA926584AEF00D5DBDC /* CompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF81AA826584AEF00D5DBDC /* CompassView.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		BD6927EE26DB377A005F24DB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = BD987E122656CEB5009AB643 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = BD987E192656CEB5009AB643;
+			remoteInfo = Navvy;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		BD12353026C8820000A8DEAE /* SearchResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewModel.swift; sourceTree = "<group>"; };
@@ -66,6 +78,9 @@
 		BD4B0A8026D2C13C009CA10D /* MKCoordinateRegion+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKCoordinateRegion+Extensions.swift"; sourceTree = "<group>"; };
 		BD51353C26D1746F006963E1 /* NavvySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavvySection.swift; sourceTree = "<group>"; };
 		BD51B7F026D0281900A2E77D /* Notifiation.Name+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notifiation.Name+Keyboard.swift"; sourceTree = "<group>"; };
+		BD6927EA26DB377A005F24DB /* NavvyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavvyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD6927EC26DB377A005F24DB /* NavvyDirectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavvyDirectionTests.swift; sourceTree = "<group>"; };
+		BD6927F326DB3B2C005F24DB /* NavvyAccesibilityHeadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavvyAccesibilityHeadingTests.swift; sourceTree = "<group>"; };
 		BD6FC87D26CB819300C40550 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		BD987E1A2656CEB5009AB643 /* Navvy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navvy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD987E1D2656CEB5009AB643 /* NavigationApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationApp.swift; sourceTree = "<group>"; };
@@ -89,6 +104,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		BD6927E726DB377A005F24DB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BD987E172656CEB5009AB643 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -169,6 +191,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		BD6927EB26DB377A005F24DB /* NavvyTests */ = {
+			isa = PBXGroup;
+			children = (
+				BD6927F326DB3B2C005F24DB /* NavvyAccesibilityHeadingTests.swift */,
+				BD6927EC26DB377A005F24DB /* NavvyDirectionTests.swift */,
+			);
+			path = NavvyTests;
+			sourceTree = "<group>";
+		};
 		BD6FC87C26CB817000C40550 /* Onboarding */ = {
 			isa = PBXGroup;
 			children = (
@@ -181,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				BD987E1C2656CEB5009AB643 /* Navvy */,
+				BD6927EB26DB377A005F24DB /* NavvyTests */,
 				BD987E1B2656CEB5009AB643 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -189,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				BD987E1A2656CEB5009AB643 /* Navvy.app */,
+				BD6927EA26DB377A005F24DB /* NavvyTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -283,6 +316,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		BD6927E926DB377A005F24DB /* NavvyTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BD6927F226DB377A005F24DB /* Build configuration list for PBXNativeTarget "NavvyTests" */;
+			buildPhases = (
+				BD6927E626DB377A005F24DB /* Sources */,
+				BD6927E726DB377A005F24DB /* Frameworks */,
+				BD6927E826DB377A005F24DB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BD6927EF26DB377A005F24DB /* PBXTargetDependency */,
+			);
+			name = NavvyTests;
+			productName = NavvyTests;
+			productReference = BD6927EA26DB377A005F24DB /* NavvyTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		BD987E192656CEB5009AB643 /* Navvy */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BD987E292656CEB7009AB643 /* Build configuration list for PBXNativeTarget "Navvy" */;
@@ -306,9 +357,13 @@
 		BD987E122656CEB5009AB643 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1250;
+				LastSwiftUpdateCheck = 1300;
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
+					BD6927E926DB377A005F24DB = {
+						CreatedOnToolsVersion = 13.0;
+						TestTargetID = BD987E192656CEB5009AB643;
+					};
 					BD987E192656CEB5009AB643 = {
 						CreatedOnToolsVersion = 12.5;
 					};
@@ -328,11 +383,19 @@
 			projectRoot = "";
 			targets = (
 				BD987E192656CEB5009AB643 /* Navvy */,
+				BD6927E926DB377A005F24DB /* NavvyTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		BD6927E826DB377A005F24DB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BD987E182656CEB5009AB643 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -345,6 +408,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		BD6927E626DB377A005F24DB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BD6927F426DB3B2C005F24DB /* NavvyAccesibilityHeadingTests.swift in Sources */,
+				BD6927ED26DB377A005F24DB /* NavvyDirectionTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BD987E162656CEB5009AB643 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -389,7 +461,67 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		BD6927EF26DB377A005F24DB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = BD987E192656CEB5009AB643 /* Navvy */;
+			targetProxy = BD6927EE26DB377A005F24DB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		BD6927F026DB377A005F24DB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q9PPH2T3L2;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.samrshi.NavvyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Navvy.app/Navvy";
+				TVOS_DEPLOYMENT_TARGET = 14.0;
+			};
+			name = Debug;
+		};
+		BD6927F126DB377A005F24DB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q9PPH2T3L2;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.samrshi.NavvyTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Navvy.app/Navvy";
+				TVOS_DEPLOYMENT_TARGET = 14.0;
+			};
+			name = Release;
+		};
 		BD987E272656CEB7009AB643 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -557,6 +689,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		BD6927F226DB377A005F24DB /* Build configuration list for PBXNativeTarget "NavvyTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BD6927F026DB377A005F24DB /* Debug */,
+				BD6927F126DB377A005F24DB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		BD987E152656CEB5009AB643 /* Build configuration list for PBXProject "Navvy" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
