@@ -8,29 +8,28 @@
 import SwiftUI
 
 extension View {
-  func fullscreenBackground<Content: View>(_ background: Content) -> some View {
-    return ZStack {
-      background.ignoresSafeArea()
+    func fullscreenBackground<Content: View>(_ background: Content) -> some View {
+        return ZStack {
+            background.ignoresSafeArea()
 
-      self
+            self
+        }
     }
-  }
 
-  func myCard() -> some View {
-    self
-      .padding()
-      .background(Color(.card))
-      .cornerRadius(10)
-  }
-  
-  func callToActionButton(background: Color) -> some View {
-    self
-      .multilineTextAlignment(.center)
-      .font(.headline)
-      .foregroundColor(.white)
-      .padding(10)
-      .background(background)
-      .cornerRadius(10)
-  }
+    func myCard() -> some View {
+        self
+            .padding()
+            .background(Color(.card))
+            .cornerRadius(10)
+    }
+
+    func callToActionButton(background: Color, foregroundColor: Color = .primary) -> some View {
+        self
+            .multilineTextAlignment(.center)
+            .font(.headline)
+            .foregroundColor(foregroundColor)
+            .padding(10)
+            .background(background)
+            .cornerRadius(10)
+    }
 }
-

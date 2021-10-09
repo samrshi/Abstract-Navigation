@@ -73,7 +73,7 @@ struct MapItemView: View {
                   Text("Take me there!")
                   Spacer()
                 }
-                .callToActionButton(background: .blue)
+                .callToActionButton(background: .blue, foregroundColor: .white)
               }
               
               Button {

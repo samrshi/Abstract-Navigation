@@ -49,14 +49,14 @@ struct NavigationScreen: View {
 
       Button(action: presentMap) {
         Image(systemName: "map.fill")
-          .foregroundColor(.white)
+          .foregroundColor(.primary)
           .font(.title2)
           .padding([.vertical, .trailing], 5)
       }
 
       Button(action: reset) {
         Image(systemName: "xmark")
-          .foregroundColor(.white)
+          .foregroundColor(.primary)
           .font(.title2)
           .padding(5)
       }

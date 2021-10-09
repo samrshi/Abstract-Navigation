@@ -28,6 +28,7 @@
 		BD51B7F126D0281900A2E77D /* Notifiation.Name+Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD51B7F026D0281900A2E77D /* Notifiation.Name+Keyboard.swift */; };
 		BD6927ED26DB377A005F24DB /* NavvyDirectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6927EC26DB377A005F24DB /* NavvyDirectionTests.swift */; };
 		BD6927F426DB3B2C005F24DB /* NavvyAccesibilityHeadingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6927F326DB3B2C005F24DB /* NavvyAccesibilityHeadingTests.swift */; };
+		BD6F70F12711F2DA003BD670 /* SelfSizingHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6F70F02711F2DA003BD670 /* SelfSizingHostingController.swift */; };
 		BD6FC87E26CB819300C40550 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD6FC87D26CB819300C40550 /* OnboardingView.swift */; };
 		BD987E1E2656CEB5009AB643 /* NavigationApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD987E1D2656CEB5009AB643 /* NavigationApp.swift */; };
 		BD987E202656CEB5009AB643 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD987E1F2656CEB5009AB643 /* ContentView.swift */; };
@@ -81,6 +82,7 @@
 		BD6927EA26DB377A005F24DB /* NavvyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavvyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD6927EC26DB377A005F24DB /* NavvyDirectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavvyDirectionTests.swift; sourceTree = "<group>"; };
 		BD6927F326DB3B2C005F24DB /* NavvyAccesibilityHeadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavvyAccesibilityHeadingTests.swift; sourceTree = "<group>"; };
+		BD6F70F02711F2DA003BD670 /* SelfSizingHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizingHostingController.swift; sourceTree = "<group>"; };
 		BD6FC87D26CB819300C40550 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		BD987E1A2656CEB5009AB643 /* Navvy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navvy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD987E1D2656CEB5009AB643 /* NavigationApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationApp.swift; sourceTree = "<group>"; };
@@ -141,6 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				BD12353726CB6C8500A8DEAE /* LocationManager.swift */,
+				BD6F70F02711F2DA003BD670 /* SelfSizingHostingController.swift */,
 				BD4B0A8026D2C13C009CA10D /* MKCoordinateRegion+Extensions.swift */,
 				BD51353C26D1746F006963E1 /* NavvySection.swift */,
 				BDB9416226672F0500EEACD6 /* URLImage.swift */,
@@ -439,6 +442,7 @@
 				BDD43BE92663207A00703B26 /* SearchResultsView.swift in Sources */,
 				BDDF250226C099AC00A1B297 /* Category+Image.swift in Sources */,
 				BD3AC537265DF6E600A9D2FA /* NavigationScreen.swift in Sources */,
+				BD6F70F12711F2DA003BD670 /* SelfSizingHostingController.swift in Sources */,
 				BDD43BE72663202C00703B26 /* SearchFieldView.swift in Sources */,
 				BD28123F26C081F000322B47 /* MainViewController.swift in Sources */,
 				BD51353D26D1746F006963E1 /* NavvySection.swift in Sources */,

@@ -9,26 +9,6 @@ import Combine
 import MapKit
 import SwiftUI
 
-struct MyView: View {
-  @State private var max = 1
-  
-  var body: some View {
-    VStack {
-      ForEach(0 ... max, id: \.self) { element in
-        Text(String(element))
-      }
-      
-      Button("Increase") {
-        if max == 1 {
-          max = 20
-        } else {
-          max = 1
-        }
-      }
-    }
-  }
-}
-
 class MainViewController: DraggableModalViewController {
   var mainManager = MainManager.shared
   var searchManager = SearchManager()
@@ -36,15 +16,13 @@ class MainViewController: DraggableModalViewController {
   // UIScrollView doesn't allow content to resize in current iOS 15 beta. Idk why it's broken
   // I'm just going to wait until more versions of the beta to come out so I don't waste too much time on it
   
-  lazy var searchViewController: UIHostingController<AnyView> = {
+  lazy var searchViewController: SelfSizingHostingController<AnyView> = {
     let searchView = AnyView(SearchView(searchManager: searchManager))
 //    let searchView = AnyView(MyView())
     
-    let hostingController = UIHostingController(rootView: searchView)
+    let hostingController = SelfSizingHostingController(rootView: searchView)
     hostingController.view?.backgroundColor = .clear
     hostingController.view?.translatesAutoresizingMaskIntoConstraints = false
-    hostingController.view?.layer.borderColor = UIColor.red.cgColor
-    hostingController.view?.layer.borderWidth = 1
     return hostingController
   }()
   
@@ -64,8 +42,6 @@ class MainViewController: DraggableModalViewController {
     scrollView.translatesAutoresizingMaskIntoConstraints = false
     scrollView.isScrollEnabled = false
     scrollView.delegate = self
-    scrollView.layer.borderColor = UIColor.blue.cgColor
-    scrollView.layer.borderWidth = 1
     return scrollView
   }()
     
