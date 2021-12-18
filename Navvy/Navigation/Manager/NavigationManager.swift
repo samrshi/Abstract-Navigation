@@ -106,7 +106,7 @@ class NavigationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
     let angle = heading - userLocation.angleTo(destination: destination)
     angleToDestination = angle
     
-    let boundedAngle = Navvy.accessibilityHeading(angle: angle)
+    let boundedAngle = NavvyOld.accessibilityHeading(angle: angle)
     let direction = accessibilityHeadingDirection(angle: boundedAngle)
     
     

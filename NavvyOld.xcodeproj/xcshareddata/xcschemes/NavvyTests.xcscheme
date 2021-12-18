@@ -5,22 +5,6 @@
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
-      <BuildActionEntries>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BD987E192656CEB5009AB643"
-               BuildableName = "Navvy.app"
-               BlueprintName = "Navvy"
-               ReferencedContainer = "container:Navvy.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-      </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
@@ -34,8 +18,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BD6927E926DB377A005F24DB"
                BuildableName = "NavvyTests.xctest"
-               BlueprintName = "NavvyTests"
-               ReferencedContainer = "container:Navvy.xcodeproj">
+               BlueprintName = "NavvyOldTests"
+               ReferencedContainer = "container:NavvyOld.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -50,16 +34,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BD987E192656CEB5009AB643"
-            BuildableName = "Navvy.app"
-            BlueprintName = "Navvy"
-            ReferencedContainer = "container:Navvy.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -67,16 +41,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BD987E192656CEB5009AB643"
-            BuildableName = "Navvy.app"
-            BlueprintName = "Navvy"
-            ReferencedContainer = "container:Navvy.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

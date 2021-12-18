@@ -79,12 +79,12 @@
 		BD4B0A8026D2C13C009CA10D /* MKCoordinateRegion+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKCoordinateRegion+Extensions.swift"; sourceTree = "<group>"; };
 		BD51353C26D1746F006963E1 /* NavvySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavvySection.swift; sourceTree = "<group>"; };
 		BD51B7F026D0281900A2E77D /* Notifiation.Name+Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notifiation.Name+Keyboard.swift"; sourceTree = "<group>"; };
-		BD6927EA26DB377A005F24DB /* NavvyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavvyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD6927EA26DB377A005F24DB /* NavvyOldTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavvyOldTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD6927EC26DB377A005F24DB /* NavvyDirectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavvyDirectionTests.swift; sourceTree = "<group>"; };
 		BD6927F326DB3B2C005F24DB /* NavvyAccesibilityHeadingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavvyAccesibilityHeadingTests.swift; sourceTree = "<group>"; };
 		BD6F70F02711F2DA003BD670 /* SelfSizingHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfSizingHostingController.swift; sourceTree = "<group>"; };
 		BD6FC87D26CB819300C40550 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
-		BD987E1A2656CEB5009AB643 /* Navvy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Navvy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		BD987E1A2656CEB5009AB643 /* NavvyOld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NavvyOld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD987E1D2656CEB5009AB643 /* NavigationApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationApp.swift; sourceTree = "<group>"; };
 		BD987E1F2656CEB5009AB643 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		BD987E212656CEB7009AB643 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -223,8 +223,8 @@
 		BD987E1B2656CEB5009AB643 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BD987E1A2656CEB5009AB643 /* Navvy.app */,
-				BD6927EA26DB377A005F24DB /* NavvyTests.xctest */,
+				BD987E1A2656CEB5009AB643 /* NavvyOld.app */,
+				BD6927EA26DB377A005F24DB /* NavvyOldTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -319,9 +319,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BD6927E926DB377A005F24DB /* NavvyTests */ = {
+		BD6927E926DB377A005F24DB /* NavvyOldTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BD6927F226DB377A005F24DB /* Build configuration list for PBXNativeTarget "NavvyTests" */;
+			buildConfigurationList = BD6927F226DB377A005F24DB /* Build configuration list for PBXNativeTarget "NavvyOldTests" */;
 			buildPhases = (
 				BD6927E626DB377A005F24DB /* Sources */,
 				BD6927E726DB377A005F24DB /* Frameworks */,
@@ -332,14 +332,14 @@
 			dependencies = (
 				BD6927EF26DB377A005F24DB /* PBXTargetDependency */,
 			);
-			name = NavvyTests;
+			name = NavvyOldTests;
 			productName = NavvyTests;
-			productReference = BD6927EA26DB377A005F24DB /* NavvyTests.xctest */;
+			productReference = BD6927EA26DB377A005F24DB /* NavvyOldTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		BD987E192656CEB5009AB643 /* Navvy */ = {
+		BD987E192656CEB5009AB643 /* NavvyOld */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BD987E292656CEB7009AB643 /* Build configuration list for PBXNativeTarget "Navvy" */;
+			buildConfigurationList = BD987E292656CEB7009AB643 /* Build configuration list for PBXNativeTarget "NavvyOld" */;
 			buildPhases = (
 				BD987E162656CEB5009AB643 /* Sources */,
 				BD987E172656CEB5009AB643 /* Frameworks */,
@@ -349,9 +349,9 @@
 			);
 			dependencies = (
 			);
-			name = Navvy;
+			name = NavvyOld;
 			productName = Navigation;
-			productReference = BD987E1A2656CEB5009AB643 /* Navvy.app */;
+			productReference = BD987E1A2656CEB5009AB643 /* NavvyOld.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -372,7 +372,7 @@
 					};
 				};
 			};
-			buildConfigurationList = BD987E152656CEB5009AB643 /* Build configuration list for PBXProject "Navvy" */;
+			buildConfigurationList = BD987E152656CEB5009AB643 /* Build configuration list for PBXProject "NavvyOld" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -385,8 +385,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BD987E192656CEB5009AB643 /* Navvy */,
-				BD6927E926DB377A005F24DB /* NavvyTests */,
+				BD987E192656CEB5009AB643 /* NavvyOld */,
+				BD6927E926DB377A005F24DB /* NavvyOldTests */,
 			);
 		};
 /* End PBXProject section */
@@ -468,7 +468,7 @@
 /* Begin PBXTargetDependency section */
 		BD6927EF26DB377A005F24DB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = BD987E192656CEB5009AB643 /* Navvy */;
+			target = BD987E192656CEB5009AB643 /* NavvyOld */;
 			targetProxy = BD6927EE26DB377A005F24DB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -495,7 +495,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Navvy.app/Navvy";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NavvyOld.app/NavvyOld";
 				TVOS_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Debug;
@@ -521,7 +521,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Navvy.app/Navvy";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NavvyOld.app/NavvyOld";
 				TVOS_DEPLOYMENT_TARGET = 14.0;
 			};
 			name = Release;
@@ -659,7 +659,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.samrshi.Navvy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.samrshi.NavvyOld;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -683,7 +683,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.1;
-				PRODUCT_BUNDLE_IDENTIFIER = com.samrshi.Navvy;
+				PRODUCT_BUNDLE_IDENTIFIER = com.samrshi.NavvyOld;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -693,7 +693,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BD6927F226DB377A005F24DB /* Build configuration list for PBXNativeTarget "NavvyTests" */ = {
+		BD6927F226DB377A005F24DB /* Build configuration list for PBXNativeTarget "NavvyOldTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BD6927F026DB377A005F24DB /* Debug */,
@@ -702,7 +702,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BD987E152656CEB5009AB643 /* Build configuration list for PBXProject "Navvy" */ = {
+		BD987E152656CEB5009AB643 /* Build configuration list for PBXProject "NavvyOld" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BD987E272656CEB7009AB643 /* Debug */,
@@ -711,7 +711,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BD987E292656CEB7009AB643 /* Build configuration list for PBXNativeTarget "Navvy" */ = {
+		BD987E292656CEB7009AB643 /* Build configuration list for PBXNativeTarget "NavvyOld" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BD987E2A2656CEB7009AB643 /* Debug */,
