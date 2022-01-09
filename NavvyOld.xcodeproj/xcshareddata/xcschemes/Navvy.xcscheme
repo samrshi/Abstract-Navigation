@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BD987E192656CEB5009AB643"
-               BuildableName = "Navvy.app"
+               BuildableName = "NavvyOld.app"
                BlueprintName = "NavvyOld"
                ReferencedContainer = "container:NavvyOld.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BD6927E926DB377A005F24DB"
-               BuildableName = "NavvyTests.xctest"
+               BuildableName = "NavvyOldTests.xctest"
                BlueprintName = "NavvyOldTests"
                ReferencedContainer = "container:NavvyOld.xcodeproj">
             </BuildableReference>
@@ -55,7 +55,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BD987E192656CEB5009AB643"
-            BuildableName = "Navvy.app"
+            BuildableName = "NavvyOld.app"
             BlueprintName = "NavvyOld"
             ReferencedContainer = "container:NavvyOld.xcodeproj">
          </BuildableReference>
@@ -72,7 +72,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BD987E192656CEB5009AB643"
-            BuildableName = "Navvy.app"
+            BuildableName = "NavvyOld.app"
             BlueprintName = "NavvyOld"
             ReferencedContainer = "container:NavvyOld.xcodeproj">
          </BuildableReference>
